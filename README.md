@@ -13,6 +13,6 @@ Get notified whenever college semester results are updated on [Campus Metalink](
 
 ## ToDo
 
-- Catch errors for the even if the website goes down.
+- Catch errors for the event if the website goes down.
 - Ensure correct parameters are passed and give appropriate response.
 
