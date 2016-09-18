@@ -47,7 +47,7 @@ def get_notified(browser, site_id, password, account_sid, auth_token, client, tw
            				from_= twilio_no # Replace with your Twilio number
         			)
         		current_num = no_of_rows
-  		browser.find_element_by_link_text("logout").click();
+  		browser.find_element_by_link_text("logout").click()
 		time.sleep(900)
 		
 	if no_of_rows > current_num:
@@ -65,7 +65,7 @@ if __name__ == "__main__":
 	MAX_ROWS = 5
 
 	with open('config.yml', 'r') as f:
-    		doc = yaml.load(f)
+    	doc = yaml.load(f)
 
 	site_id = 'iiitb'
 	username = doc['params']['username']
