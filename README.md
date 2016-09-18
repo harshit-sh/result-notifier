@@ -1,2 +1,9 @@
 # result-notifier
-Get notified if result is updated
+==================
+
+Get notified whenever college semester results are updated on Campus Metalink.
+
+## How does it work?
+---
+
+
