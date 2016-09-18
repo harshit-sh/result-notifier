@@ -7,6 +7,8 @@ import sys
 import time
 import yaml
 
+MAX_ROWS = 5
+
 def get_notified(browser, site_id, password, account_sid, auth_token, client, twilio_no, your_no):
 	xpaths = { 'site_id' : "//input[@name='recqIDId:j_id15']", \
         		'username' : "//input[@name='recqIDId:j_id17']", \
@@ -31,7 +33,7 @@ def get_notified(browser, site_id, password, account_sid, auth_token, client, tw
 
 		table = browser.find_elements_by_xpath("//table[@id='scheduleForm:svres']/tbody/tr")
 		no_of_rows = len(table)
-	
+		
 		if no_of_rows == MAX_ROWS:
 			message = client.messages.create(
                         	body="All results are available. Bye",
@@ -41,17 +43,16 @@ def get_notified(browser, site_id, password, account_sid, auth_token, client, tw
 			sys.exit()
 		else:
 			if no_of_rows > current_num:
-    			message = client.messages.create(
+    				message = client.messages.create(
     					body="Check Result!",
           				to= your_no,    # Replace with your phone number
            				from_= twilio_no # Replace with your Twilio number
         			)
-        		current_num = no_of_rows
+        			current_num = no_of_rows
   		browser.find_element_by_link_text("logout").click()
 		time.sleep(900)
-		
 	if no_of_rows > current_num:
-    	message = client.messages.create(
+    		message = client.messages.create(
     				body="Check Result!",
           			to= your_no,    # Replace with your phone number
            			from_= twilio_no # Replace with your Twilio number
@@ -62,10 +63,9 @@ if __name__ == "__main__":
 
 	url = 'http://iiitb.campusmetalink.com/cml/pages/selfService/CssAssignmentReg.jsf'
 	browser.get(url)
-	MAX_ROWS = 5
 
 	with open('config.yml', 'r') as f:
-    	doc = yaml.load(f)
+    		doc = yaml.load(f)
 
 	site_id = 'iiitb'
 	username = doc['params']['username']
@@ -77,5 +77,4 @@ if __name__ == "__main__":
 	your_no = os.environ.get('your_no')
 
 	term = doc['params']['term']
-	
 	get_notified(browser, site_id, password, account_sid, auth_token, client, twilio_no, your_no)
