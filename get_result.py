@@ -27,8 +27,16 @@ def get_notified(browser, site_id, password, account_sid, auth_token, client, tw
 
 	table = browser.find_elements_by_xpath("//table[@id='scheduleForm:svres']/tbody/tr")
 	no_of_rows = len(table)
-
- 	if no_of_rows > 3 and no_of_rows <= 5:
+	
+	while no_of_rows != MAX_ROWS:
+	if no_of_rows == MAX_ROWS:
+		 message = client.messages.create(
+                        body="All results are available. Bye",
+                        to= your_no,    # Replace with your phone number
+                        from_= twilio_no # Replace with your Twilio number
+                )
+		sys.exit()
+ 	else:
     		message = client.messages.create(
     			body="Check Result!",
           		to= your_no,    # Replace with your phone number
@@ -48,7 +56,7 @@ if __name__ == "__main__":
 	MAX_ROWS = 5
 
 	with open('config.yml', 'r') as f:
-    	doc = yaml.load(f)
+    		doc = yaml.load(f)
 
 	site_id = 'iiitb'
 	username = doc['params']['username']
