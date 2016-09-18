@@ -41,12 +41,12 @@ def get_notified(browser, site_id, password, account_sid, auth_token, client, tw
 			sys.exit()
  		else:
  			if no_of_rows > current_num:
-    			message = client.messages.create(
-    				body="Check Result!",
-          			to= your_no,    # Replace with your phone number
-           			from_= twilio_no # Replace with your Twilio number
-        		)
-        		current_num = no_of_rows
+    				message = client.messages.create(
+    					body="Check Result!",
+          				to= your_no,    # Replace with your phone number
+           				from_= twilio_no # Replace with your Twilio number
+        			)
+        			current_num = no_of_rows
   		browser.find_element_by_link_text("logout").click();
 		time.sleep(900)
 		
