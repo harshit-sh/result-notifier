@@ -7,9 +7,10 @@ import sys
 import time
 import yaml
 
+# MAX_ROWS is the maximum no. of courses that are provided in a semester, can be modified accordingly.
 MAX_ROWS = 5
 
-def get_notified(browser, site_id, password, account_sid, auth_token, client, twilio_no, your_no):
+def get_notified(browser, site_id, username, password, term, account_sid, auth_token, client, twilio_no, your_no):
     xpaths = { 'site_id' : "//input[@name='recqIDId:j_id15']", \
         		'username' : "//input[@name='recqIDId:j_id17']", \
         		'password': "//input[@name='recqIDId:j_id19']",
@@ -34,6 +35,8 @@ def get_notified(browser, site_id, password, account_sid, auth_token, client, tw
         table = browser.find_elements_by_xpath("//table[@id='scheduleForm:svres']/tbody/tr")
         no_of_rows = len(table)
 		
+        # Checking if the no. of rows found is equal to the MAX_ROWS
+        # Send message and exit
         if no_of_rows == MAX_ROWS:
             message = client.messages.create(
                             body="All results are available. Bye",
@@ -71,4 +74,4 @@ if __name__ == "__main__":
     your_no = os.environ.get('your_no')
 
     term = doc['params']['term']
-    get_notified(browser, site_id, password, account_sid, auth_token, client, twilio_no, your_no)
+    get_notified(browser, site_id, username, password, term, account_sid, auth_token, client, twilio_no, your_no)
